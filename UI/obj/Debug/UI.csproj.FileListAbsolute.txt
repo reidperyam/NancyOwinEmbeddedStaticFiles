@@ -6,3 +6,7 @@ C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\bin\Debug\UI.d
 C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\bin\Debug\UI.pdb
 C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\obj\Debug\UI.dll
 C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\obj\Debug\UI.pdb
+C:\Users\repe\Documents\GitHub\NancyOwinEmbeddedStaticFiles\UI\bin\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\NancyOwinEmbeddedStaticFiles\UI\bin\Debug\UI.pdb
+C:\Users\repe\Documents\GitHub\NancyOwinEmbeddedStaticFiles\UI\obj\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\NancyOwinEmbeddedStaticFiles\UI\obj\Debug\UI.pdb

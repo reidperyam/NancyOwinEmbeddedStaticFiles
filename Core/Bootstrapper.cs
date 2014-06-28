@@ -12,7 +12,7 @@
     {
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
-            ResourceViewLocationProvider.RootNamespaces.Add(typeof(Hooker).Assembly, "UI.Views");
+            ResourceViewLocationProvider.RootNamespaces.Add(typeof(Hooker).Assembly, "UI");
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
@@ -30,11 +30,6 @@
         {
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("/", "UI"));
             base.ConfigureConventions(nancyConventions);
-        }
-
-        protected override DiagnosticsConfiguration DiagnosticsConfiguration
-        {
-            get { return new DiagnosticsConfiguration { Password = @"hi" }; }
         }
     }
 }
