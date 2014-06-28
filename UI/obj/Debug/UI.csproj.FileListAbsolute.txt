@@ -1,0 +1,8 @@
+C:\Users\repe\Documents\GitHub\UI\bin\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\UI\bin\Debug\UI.pdb
+C:\Users\repe\Documents\GitHub\UI\obj\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\UI\obj\Debug\UI.pdb
+C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\bin\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\bin\Debug\UI.pdb
+C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\obj\Debug\UI.dll
+C:\Users\repe\Documents\GitHub\OwinEmbeddedStaticFilesAndNancy\UI\obj\Debug\UI.pdb
