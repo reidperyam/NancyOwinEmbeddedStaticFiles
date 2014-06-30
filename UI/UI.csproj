@@ -48,6 +48,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\hello.html" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\ContentDirectory\SubDirectory\Sub-SubDirectory\subsubsub\image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\image.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

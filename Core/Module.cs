@@ -18,6 +18,10 @@
             {
                 return Negotiate.WithView("time");
             };
+            Get["/image"] = _ =>
+            {
+                return Negotiate.WithView("image");
+            };
         }
     }
 }

@@ -64,10 +64,19 @@
         }
 
         [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /time route configured in Core.Module verify that the associated view is returned as expected.")]
-        public void TimeRouteReturnsView()
+        [Test, Description("Send an HTTP request to the /time route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
+        public void TimeRouteReturnsOK()
         {
             var response = _server.HttpClient.GetAsync("/time").Result;
+            Assert.AreEqual(true, response.IsSuccessStatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Category("Core.Module")]
+        [Test, Description("Send an HTTP request to the /image route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
+        public void ImageRouteReturnsOK()
+        {
+            var response = _server.HttpClient.GetAsync("/image").Result;
             Assert.AreEqual(true, response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
