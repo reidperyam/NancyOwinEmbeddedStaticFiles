@@ -62,6 +62,15 @@
             Assert.That(response.Content.ReadAsStringAsync().Result, 
                 Is.EqualTo("Hello World from Embedded Resource View in a separate assembly, hello.html"));
         }
+
+        [Category("Core.Module")]
+        [Test, Description("Send an HTTP request to the /time route configured in Core.Module verify that the associated view is returned as expected.")]
+        public void TimeRouteReturnsView()
+        {
+            var response = _server.HttpClient.GetAsync("/time").Result;
+            Assert.AreEqual(true, response.IsSuccessStatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 
     static class Extensions
