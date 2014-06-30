@@ -25,11 +25,5 @@
                 return NancyInternalConfiguration.WithOverrides(c => c.ViewLocationProvider = typeof(ResourceViewLocationProvider));
             }
         }
-
-        protected override void ConfigureConventions(NancyConventions nancyConventions)
-        {
-            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("/", "UI"));
-            base.ConfigureConventions(nancyConventions);
-        }
     }
 }

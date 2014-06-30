@@ -62,22 +62,6 @@
             Assert.That(response.Content.ReadAsStringAsync().Result, 
                 Is.EqualTo("Hello World from Embedded Resource View in a separate assembly, hello.html"));
         }
-
-        [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /time route configured in Core.Module verify that the view is returned as expected and the contents represents a scripted DateTime.")]
-        public void TimeRouteReturnsViewOfScriptedTime()
-        {
-            var response = _server.HttpClient.GetAsync("/time").Result;
-            Assert.AreEqual(true, response.IsSuccessStatusCode);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            //now verify that the view's AJAX request to load the embedded moment.min.js also succeeded
-            Match parsedScriptedDateFromView = new Regex(@"(?<=\[)(.*?)(?=\])").Match(response.Content.ReadAsStringAsync().Result);
-            Assert.IsTrue(parsedScriptedDateFromView.Success);//if this succeeds then the returned via asynchronously requested and received the embedded .js library, moment.js served from Microsoft.Owin.StaticFiles
-            DateTime dt;
-            Assert.IsTrue(DateTime.TryParse(parsedScriptedDateFromView.Value, out dt));
-            Assert.AreEqual(DateTime.Today, dt.Date);
-        }
     }
 
     static class Extensions

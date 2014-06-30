@@ -3,10 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <title>Time</title>
-    <!-- AJAX -- load from embedded resource in satellite assembly -->
-    <script src="/Content/Libraries/moment/moment.min.js"></script>
+    <!-- load from embedded resource in satellite assembly -->
+    <script src="/Content.Libraries.moment.moment.min.js"></script>
 </head>
 <body>
-[<script>moment().format();</script>]
+    <div id="timeDiv">
+        <!-- scripted time output to browser both to screen and appending div-->
+        <script>document.write(moment().format());</script>
+        <script>var newdiv = document.createElement('div');var date = "["+moment().format()+"]"; document.getElementById("timeDiv").appendChild(newdiv); newdiv.innerHTML = date;</script>
+    </div>
+
 </body>
 </html>
