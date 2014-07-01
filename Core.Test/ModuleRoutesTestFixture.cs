@@ -6,6 +6,7 @@
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Net.Http.Headers;
     using UI;
 
     [TestFixture]
@@ -16,6 +17,8 @@
         string[] GetEmbeddedResourcePaths() { return typeof(Hooker).Assembly.GetManifestResourceNames(); }
 
         string[] GetNonEmbeddedContentPaths() { return new string[] { "UI.Hooker.cs" };}
+
+        string[] GetNancyRoutes() { return new string[] { "hello", "time", "image", "custom" }; }
 
         [TestFixtureSetUp]
         public virtual void TestFixtureSetup()
@@ -56,32 +59,13 @@
         }
 
         [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /hello route configured in Core.Module verify that the view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
-        public void HelloRouteReturnsHelloHtml()
+        [Test, Description("Send an HTTP request to the /home route configured in Core.Module verify that the index.html view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
+        public void GetViewFromNancyRoute([ValueSource("GetNancyRoutes")]string nancyRoute)
         {
-            var response = _server.HttpClient.GetAsync("/hello").Result;
+            var response = _server.HttpClient.GetAsync(nancyRoute).Result;
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.That(response.Content.ReadAsStringAsync().Result, 
-                Is.EqualTo("Hello World from Embedded Resource View in a separate assembly, hello.html"));
-        }
-
-        [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /time route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
-        public void TimeRouteReturnsOK()
-        {
-            var response = _server.HttpClient.GetAsync("/time").Result;
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /image route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
-        public void ImageRouteReturnsOK()
-        {
-            var response = _server.HttpClient.GetAsync("/image").Result;
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(MediaTypeHeaderValue.Parse("text/html"), response.Content.Headers.ContentType);
         }
 
         [Category("Core.Module")]
@@ -91,15 +75,6 @@
             var response = _server.HttpClient.GetAsync("/hidden").Result;
             Assert.IsFalse(response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
-        }
-
-        [Category("Core.Module")]
-        [Test, Description("Send an HTTP request to the /custom route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
-        public void CustomRouteReturnsOK()
-        {
-            var response = _server.HttpClient.GetAsync("/custom").Result;//Core.Bootstrapper has custom view location configuration for the view associated with this route
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         private static bool CompareMemoryStreams(MemoryStream ms1, MemoryStream ms2)
