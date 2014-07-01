@@ -3,10 +3,9 @@
     using Core;
     using Microsoft.Owin.Testing;
     using NUnit.Framework;
-    using System;
     using System.IO;
+    using System.Linq;
     using System.Net;
-    using System.Text.RegularExpressions;
     using UI;
 
     [TestFixture]
@@ -38,9 +37,13 @@
             var response = _server.HttpClient.GetAsync(embeddedResourcePath.Replace("UI.", "/")).Result;
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
+            MemoryStream assemblyMemoryStream = new MemoryStream();
+            typeof(Hooker).Assembly.GetManifestResourceStream(embeddedResourcePath).CopyTo(assemblyMemoryStream);
+            MemoryStream httpMemoryStream = new MemoryStream();
+            response.Content.ReadAsStreamAsync().Result.CopyTo(httpMemoryStream);
+
             // compare content returned via HTTP with manually retrieved from assembly by the [TestFixture]
-            Assert.That(typeof(Hooker).Assembly.GetManifestResourceStream(embeddedResourcePath).StreamAsString(),
-                         Is.EqualTo(response.Content.ReadAsStringAsync().Result));
+            Assert.IsTrue(CompareMemoryStreams(assemblyMemoryStream, httpMemoryStream));
         }
 
         [Category("Core.Microsoft.Owin.StaticFiles")]
@@ -79,6 +82,19 @@
             var response = _server.HttpClient.GetAsync("/image").Result;
             Assert.AreEqual(true, response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+        private static bool CompareMemoryStreams(MemoryStream ms1, MemoryStream ms2)
+        {
+            if (ms1.Length != ms2.Length)
+                return false;
+
+            ms1.Position = 0;
+            ms2.Position = 0;
+
+            var msArray1 = ms1.ToArray();
+            var msArray2 = ms2.ToArray();
+
+            return msArray1.SequenceEqual(msArray2);
         }
     }
 

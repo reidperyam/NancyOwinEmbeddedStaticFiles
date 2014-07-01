@@ -1,13 +1,9 @@
 ﻿namespace Core
 {
-    using System;
-    using System.Threading.Tasks;
-    using Microsoft.Owin;
-    using Owin;
-    using Microsoft.Owin.FileSystems;
-    using Nancy.Owin;
-    using Microsoft.Owin.StaticFiles;
     using Microsoft.Owin.Extensions;
+    using Microsoft.Owin.FileSystems;
+    using Microsoft.Owin.StaticFiles;
+    using Owin;
 
     public class Startup
     {
@@ -15,6 +11,7 @@
         {
             app.UseStaticFiles(new StaticFileOptions
             {
+                ServeUnknownFileTypes = true,
                 FileSystem = new EmbeddedResourceFileSystem(typeof(UI.Hooker).Assembly, "UI")
             });
             app.UseNancy();
