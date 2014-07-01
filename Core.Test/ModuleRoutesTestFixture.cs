@@ -93,6 +93,15 @@
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
         }
 
+        [Category("Core.Module")]
+        [Test, Description("Send an HTTP request to the /custom route configured in Core.Module verify an associated view, an embedded resource file in a different assembly (UI.dll), is returned as expected.")]
+        public void CustomRouteReturnsOK()
+        {
+            var response = _server.HttpClient.GetAsync("/custom").Result;//Core.Bootstrapper has custom view location configuration for the view associated with this route
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
         private static bool CompareMemoryStreams(MemoryStream ms1, MemoryStream ms2)
         {
             if (ms1.Length != ms2.Length)

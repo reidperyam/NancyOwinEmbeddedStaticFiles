@@ -26,6 +26,10 @@
             {
                 return Negotiate.WithView("willNotBeFound");
             };
+            Get["/custom"] = _ =>
+            {
+                return Negotiate.WithView("willBeFound");
+            };
         }
     }
 }

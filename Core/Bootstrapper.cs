@@ -13,6 +13,11 @@
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(Hooker).Assembly, "UI");
+
+            this.Conventions.ViewLocationConventions.Add((viewName, model, context) =>
+            {
+                return string.Concat("Views/CustomNancyViewConventionConfiguredForThis/", viewName);
+            });
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
