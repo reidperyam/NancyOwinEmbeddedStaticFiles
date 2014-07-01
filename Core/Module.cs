@@ -22,6 +22,10 @@
             {
                 return Negotiate.WithView("image");
             };
+            Get["/hidden"] = _ =>
+            {
+                return Negotiate.WithView("willNotBeFound");
+            };
         }
     }
 }

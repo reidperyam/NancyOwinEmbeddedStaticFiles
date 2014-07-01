@@ -60,7 +60,7 @@
         public void HelloRouteReturnsHelloHtml()
         {
             var response = _server.HttpClient.GetAsync("/hello").Result;
-            Assert.AreEqual(true, response.IsSuccessStatusCode);
+            Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.That(response.Content.ReadAsStringAsync().Result, 
                 Is.EqualTo("Hello World from Embedded Resource View in a separate assembly, hello.html"));
@@ -71,7 +71,7 @@
         public void TimeRouteReturnsOK()
         {
             var response = _server.HttpClient.GetAsync("/time").Result;
-            Assert.AreEqual(true, response.IsSuccessStatusCode);
+            Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -80,9 +80,19 @@
         public void ImageRouteReturnsOK()
         {
             var response = _server.HttpClient.GetAsync("/image").Result;
-            Assert.AreEqual(true, response.IsSuccessStatusCode);
+            Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Category("Core.Module")]
+        [Test, Description("Send an HTTP request to the /hidden route configured in Core.Module. Since the associated view resides in a subdirectory that Nancy doesn't have a view convention for it will not be found.")]
+        public void HiddenRouteReturnsInternalServerError()
+        {
+            var response = _server.HttpClient.GetAsync("/hidden").Result;
+            Assert.IsFalse(response.IsSuccessStatusCode);
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+        }
+
         private static bool CompareMemoryStreams(MemoryStream ms1, MemoryStream ms2)
         {
             if (ms1.Length != ms2.Length)
