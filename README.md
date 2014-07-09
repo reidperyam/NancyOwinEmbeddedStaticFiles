@@ -5,8 +5,8 @@ This repo serves to repro issues servinge static files to NancyFx when they are 
 
 Microsoft.Owin.StaticFiles is used to serve embedded resource static files for consumption by Nancy.
 
-The repro tests demonstrate that while these files are accessible over HTTP, and while Nancy can locate and serve Embedded Views 
-AJAX requests initiating from these views cannot locate dependant, static resources (such as .js files).
+The repro tests demonstrate that these files are accessible over HTTP, and  Nancy can locate and serve Embedded Views 
+AJAX requests initiating from these views can locate dependant, static resources (such as .js files).
 
 Core.csproj
 ===========
