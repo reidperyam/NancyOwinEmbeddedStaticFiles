@@ -18,5 +18,4 @@ contains embedded resource files as static content for Core.csproj
 
 _Test.Core.Test.csproj
 ===========
-automated tests ; All tests will pass except for one -- highlighting the issue
-Microsoft.Owin.Testing.TestServer is used to host the referenced Core.Startup (Owin startup class) for test execution
+automated tests ; All tests will pass 
